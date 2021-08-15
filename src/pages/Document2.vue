@@ -31,7 +31,7 @@ export default defineComponent({
     };
   },
   async created() {
-    const programacio = await this.$axios.get("http://localhost:8080/programacio/9")
+    const programacio = await this.$axios.get("http://localhost:8080/programacio/15")
     this.programacio = programacio.data;
   },
   methods: {
@@ -64,8 +64,18 @@ export default defineComponent({
         */
       const seccionsMap = [];
       seccions.forEach(s=>{
+        let heading = 1;
+        switch (s.heading){
+          case 1: heading = HeadingLevel.HEADING_1; break;
+          case 2: heading = HeadingLevel.HEADING_2; break;
+          case 3: heading = HeadingLevel.HEADING_3; break;
+          case 4: heading = HeadingLevel.HEADING_4; break;
+          case 5: heading = HeadingLevel.HEADING_5; break;
+          case 6: heading = HeadingLevel.HEADING_6; break;
+          default:
+        }
         const pHeading = new Paragraph({
-          heading: HeadingLevel.HEADING_1,
+          heading: heading,
           text: s.titol,
         })
         seccionsMap.push(pHeading)
